@@ -2,7 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
+.svg {
+  filter: invert(100%) sepia(13%) saturate(732%) hue-rotate(175deg)
+    brightness(100%) contrast(98%);
+}
+
+/* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
@@ -30,4 +35,4 @@ body {
   .text-balance {
     text-wrap: balance;
   }
-}
+} */
