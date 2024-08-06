@@ -12,7 +12,7 @@ const Navbar = () => {
     setOpen(!open);
   };
   return (
-    <div className="h-screen w-1/5 bg-[#799364] p-2 text-slate-50 flex flex-col space-y-10 items-center pt-10 sticky">
+    <div className="h-screen w-1/5 bg-[#799364] p-2 text-slate-50 flex flex-col space-y-10 items-center pt-10 absolute">
       <div className="flex items-center">
         <Image
           src="/whisk.png"

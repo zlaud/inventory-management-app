@@ -7,32 +7,35 @@
     brightness(100%) contrast(98%);
 }
 
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: #f7f0e2;
+}
+input {
+  display: none;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-} */
+label {
+  border-radius: 10px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: center;
+  width: 100%;
+  transition: 0.3s ease;
+
+  background: #f5f7fb;
+  border: 0.794239px solid #4d5b9e;
+  box-sizing: border-box;
+  border-radius: 7.94239px;
+
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding: 5px 10px 5px 10px;
+}
+
+input:checked + label {
+  background-color: teal;
+  color: white;
+}
