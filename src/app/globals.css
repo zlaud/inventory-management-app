@@ -9,33 +9,21 @@
 
 body {
   background: #f7f0e2;
+  color: #7c5633;
 }
-input {
+.modal {
   display: none;
 }
 
-label {
-  border-radius: 10px;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 12px;
-  line-height: 12px;
-  text-align: center;
-  width: 100%;
+.modal-label {
   transition: 0.3s ease;
-
-  background: #f5f7fb;
-  border: 0.794239px solid #4d5b9e;
-  box-sizing: border-box;
-  border-radius: 7.94239px;
-
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding: 5px 10px 5px 10px;
+  margin: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #fab374;
+  border-radius: 0.75rem;
 }
 
-input:checked + label {
-  background-color: teal;
+.modal:checked + .modal-label {
+  background-color: #e48a44;
   color: white;
 }

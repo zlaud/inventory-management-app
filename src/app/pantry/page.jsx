@@ -1,11 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import Selector from "@/components/Selector";
 import SearchBar from "@/components/SearchBar";
 import { db } from "@/firebase.js";
 import { collection, query, where, getDocs } from "firebase/firestore";
-import { Modal, Box, Button, Typography } from "@mui/material";
+import AddItemModal from "@/components/AddModal";
 
 const Pantry = () => {
   const [category, setCategory] = useState("all");
@@ -87,45 +86,12 @@ const Pantry = () => {
         </button>
       </div>
 
-      <Modal open={addModal} onClose={handleAddModal}>
-        <div>
-          <div className="bg-slate-50">
-            <input type="radio" name="category" id="produce" />
-            <label htmlFor="produce">Produce</label>
-
-            <input type="radio" name="category" id="dairy" />
-            <label htmlFor="dairy">Dairy</label>
-
-            <input type="radio" name="category" id="meat" />
-            <label htmlFor="meat">Meats & Seafood</label>
-
-            <input type="radio" name="category" id="bakery" />
-            <label htmlFor="bakery">Bakery</label>
-
-            <input type="radio" name="category" id="beverages" />
-            <label htmlFor="beverages">Beverages</label>
-
-            <input type="radio" name="category" id="snacks" />
-            <label htmlFor="snacks">Snacks</label>
-
-            <input type="radio" name="category" id="condiments" />
-            <label htmlFor="condiments">Condiments</label>
-          </div>
-        </div>
-        {/* <Box>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligul.
-          </Typography>
-        </Box> */}
-      </Modal>
+      <AddItemModal open={addModal} onClose={handleAddModal} />
 
       <div className="m-5 bg-[#FAB275] rounded-[30px] ">
         <div className="flex px-20 py-5 text-white font-bold sticky">
           <div
-            className="flex-1 cursor-pointer hover:text-neutral-600"
+            className="flex-1 cursor-pointer hover:text-[#7C5633]"
             style={{ flexBasis: "25%" }}
             onClick={() => handleSort("category")}
           >
@@ -137,7 +103,7 @@ const Pantry = () => {
               : ""}
           </div>
           <div
-            className="flex-2 cursor-pointer hover:text-neutral-600"
+            className="flex-2 cursor-pointer hover:text-[#7C5633]"
             style={{ flexBasis: "50%" }}
             onClick={() => handleSort("item")}
           >
@@ -145,7 +111,7 @@ const Pantry = () => {
             {sortField === "item" ? (sortDirection === "asc" ? "↑" : "↓") : ""}
           </div>
           <div
-            className="flex-1 text-center cursor-pointer hover:text-neutral-600"
+            className="flex-1 text-center cursor-pointer hover:text-[#7C5633]"
             style={{ flexBasis: "25%" }}
             onClick={() => handleSort("quantity")}
           >

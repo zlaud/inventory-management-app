@@ -16,7 +16,7 @@ const Selector = ({ onChange }) => {
           <option value="meat">Meats & Seafood</option>
           <option value="bakery">Bakery</option>
           <option value="beverages">Beverages</option>
-          <option value="snacks">Snacks</option>
+          <option value="snack">Snacks</option>
           <option value="condiments">Condiments</option>
         </select>
       </label>
