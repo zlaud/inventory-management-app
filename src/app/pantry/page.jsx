@@ -12,6 +12,7 @@ const Pantry = () => {
   const [sortField, setSortField] = useState("category");
   const [sortDirection, setSortDirection] = useState("asc");
   const [addModal, setAddModal] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
 
   const quantityOrder = ["low", "half", "full"];
   const parseQuantity = (quantity) => {
@@ -28,8 +29,8 @@ const Pantry = () => {
     console.log("Selected Category:", event.target.value);
   };
 
-  const handleSearch = () => {
-    console.log("hi");
+  const handleSearch = (e) => {
+    setSearchInput(e.target.value.toLowerCase());
   };
 
   const handleAddModal = () => {
@@ -51,7 +52,12 @@ const Pantry = () => {
             ? query(collection(db, "items"))
             : query(collection(db, "items"), where("category", "==", category));
         const querySnapshot = await getDocs(q);
-        const postsData = querySnapshot.docs.map((doc) => doc.data());
+        let postsData = querySnapshot.docs.map((doc) => doc.data());
+        if (searchInput) {
+          postsData = postsData.filter((item) =>
+            item.item.toLowerCase().includes(searchInput)
+          );
+        }
         postsData.sort((a, b) => {
           let aValue = a[sortField];
           let bValue = b[sortField];
@@ -71,7 +77,7 @@ const Pantry = () => {
       }
     };
     getData();
-  }, [category, sortField, sortDirection]);
+  }, [category, sortField, sortDirection, searchInput, addModal]);
 
   return (
     <div className="mx-10 mt-7">
