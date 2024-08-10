@@ -11,13 +11,12 @@ import {
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyBqu_EdR_XgVu9gjTSgmuVpu06fkaW4PPc",
-  authDomain: "pantry-manager-e0ad7.firebaseapp.com",
-  projectId: "pantry-manager-e0ad7",
-  storageBucket: "pantry-manager-e0ad7.appspot.com",
-  messagingSenderId: "1090405755963",
-  appId: "1:1090405755963:web:64e96dc7499ff7a522401e",
-  measurementId: "G-21Q1HVYWGE",
+  apiKey: process.env.APIKEY,
+  authDomain: process.env.AUTHDOMAIN,
+  projectId: process.env.PROJECTID,
+  storageBucket: process.env.STORAGEBUCKET,
+  messagingSenderId: process.env.MESSAGINGSENDERID,
+  appId: process.env.APPID,
 };
 
 // Initialize Firebase
@@ -26,3 +25,4 @@ const auth = getAuth(app);
 setPersistence(auth, browserSessionPersistence);
 const db = getFirestore(app);
 export { auth, db, app };
+console.log(process.env);
