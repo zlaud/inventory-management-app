@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import Selector from "@/components/Selector";
 import SearchBar from "@/components/SearchBar";
 import { db } from "@/firebase.js";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, doc } from "firebase/firestore";
 import AddItemModal from "@/components/AddModal";
+import EditModal from "@/components/EditModal";
 
 const Pantry = () => {
   const [category, setCategory] = useState("all");
@@ -12,6 +13,8 @@ const Pantry = () => {
   const [sortField, setSortField] = useState("category");
   const [sortDirection, setSortDirection] = useState("asc");
   const [addModal, setAddModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
   const [searchInput, setSearchInput] = useState("");
 
   const quantityOrder = ["low", "half", "full"];
@@ -26,7 +29,6 @@ const Pantry = () => {
 
   const handleCategoryChange = (event) => {
     setCategory(event.target.value);
-    console.log("Selected Category:", event.target.value);
   };
 
   const handleSearch = (e) => {
@@ -35,6 +37,15 @@ const Pantry = () => {
 
   const handleAddModal = () => {
     setAddModal(!addModal);
+  };
+
+  const handleEditModal = (item = null) => {
+    if (item && item.nativeEvent) {
+      setEditModal(false);
+    } else {
+      setSelectedItem(item);
+      setEditModal(true);
+    }
   };
 
   const handleSort = (field) => {
@@ -52,7 +63,13 @@ const Pantry = () => {
             ? query(collection(db, "items"))
             : query(collection(db, "items"), where("category", "==", category));
         const querySnapshot = await getDocs(q);
-        let postsData = querySnapshot.docs.map((doc) => doc.data());
+        let postsData = querySnapshot.docs.map((doc) => {
+          const data = doc.data();
+          return {
+            id: doc.id,
+            ...data,
+          };
+        });
         if (searchInput) {
           postsData = postsData.filter((item) =>
             item.item.toLowerCase().includes(searchInput)
@@ -77,7 +94,7 @@ const Pantry = () => {
       }
     };
     getData();
-  }, [category, sortField, sortDirection, searchInput, addModal]);
+  }, [category, sortField, sortDirection, searchInput, addModal, selectedItem]);
 
   return (
     <div className="mx-10 mt-7">
@@ -93,6 +110,13 @@ const Pantry = () => {
       </div>
 
       <AddItemModal open={addModal} onClose={handleAddModal} />
+      {editModal && selectedItem && (
+        <EditModal
+          open={editModal}
+          onClose={handleEditModal}
+          docRef={doc(db, "items", selectedItem.id)} // Only pass docRef when selectedItem is defined
+        />
+      )}
 
       <div className="m-5 bg-[#FAB275] rounded-[30px] ">
         <div className="flex px-20 py-5 text-white font-bold sticky">
@@ -129,10 +153,14 @@ const Pantry = () => {
               : ""}
           </div>
         </div>
-        <div className="bg-stone-100 py-5 px-20 rounded-br-[30px] rounded-bl-[30px] max-h-[570px] overflow-y-auto">
+        <div className="bg-stone-100 py-5 px-10 rounded-br-[30px] rounded-bl-[30px] max-h-[570px] overflow-y-auto">
           {data.length > 0 ? (
             data.map((item, index) => (
-              <div key={index} className="flex py-4 border-b border-gray-300">
+              <div
+                key={index}
+                onClick={() => handleEditModal(item)}
+                className="flex py-4 px-10 border-b border-gray-300 hover:bg-stone-200 hover:cursor-pointer"
+              >
                 <div className="flex-1" style={{ flexBasis: "25%" }}>
                   {item.category}
                 </div>

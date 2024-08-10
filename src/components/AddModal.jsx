@@ -61,7 +61,7 @@ const AddItemModal = ({ open, onClose }) => {
 
   return (
     <Modal open={open} onClose={onClose}>
-      <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-slate-50 p-32 rounded-full border-[#C6D48D] border-8">
+      <div className="absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-slate-50 px-32 py-28 rounded-full border-[#C6D48D] border-8">
         <h4 className="font-medium py-2 text-[#7C5633]">Item Name:</h4>
         <input
           value={itemName}
@@ -247,12 +247,14 @@ const AddItemModal = ({ open, onClose }) => {
             )}
           </div>
         </div>
-        <button
-          onClick={handleSubmit}
-          className="bg-[#799364] rounded-full py-2 px-6 m-2 text-white text-center mt-4"
-        >
-          Add Item
-        </button>
+        <div className="flex justify-center items-center pt-5 pb-[-1.5rem]">
+          <button
+            onClick={handleSubmit}
+            className="bg-[#799364] rounded-full py-2 px-6 m-2 text-white text-center mt-4"
+          >
+            Add Item
+          </button>
+        </div>
       </div>
     </Modal>
   );
